@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.futbolFemeni')
 
 @section('title', "Guia d'Equips")
 
@@ -11,7 +11,9 @@
             <th class="border border-gray-300 p-4 text-left font-semibold text-gray-700">Nom</th>
             <th class="border border-gray-300 p-4 text-left font-semibold text-gray-700">Ciutat</th>
             <th class="border border-gray-300 p-4 text-left font-semibold text-gray-700">Capacitat</th>
+            @auth
             <th class="border border-gray-300 p-4 text-left font-semibold text-gray-700">Accions</th>
+            @endauth
         </tr>
         </thead>
         <tbody>
@@ -24,17 +26,21 @@
             </td>
             <td class="border border-gray-200 p-4">{{ $estadi->ciutat }}</td>
             <td class="border border-gray-200 p-4">{{ $estadi->capacitat }}</td>
+            @auth
             <td class="border border-gray-300 p-2 flex space-x-2">
                 <a href="{{ route('estadis.show', $estadi->id) }}" 
                     class="inline-block px-4 py-2 text-sm font-medium text-green-700 border border-green-700 rounded-lg hover:bg-green-700 hover:text-white focus:ring focus:ring-green-300">
                         Mostrar
                 </a>
 
+                @can('update', $estadi)
                 <a href="{{ route('estadis.edit', $estadi->id) }}" 
                 class="inline-block px-4 py-2 text-sm font-medium text-blue-700 border border-blue-700 rounded-lg hover:bg-blue-700 hover:text-white focus:ring focus:ring-blue-300">
                         Editar
                 </a>
+                @endcan
 
+                @can('delete', $estadi)
                 <form action="{{ route('estadis.destroy', $estadi->id) }}" method="POST" onsubmit="return confirm('¿Seguro que deseas eliminar este estadio?');" class="inline-block">
                     @csrf
                     @method('DELETE')
@@ -43,18 +49,24 @@
                         Eliminar
                     </button>
                 </form>
+                @endcan
             </td>
+            @endauth
         </tr>
         @endforeach
         </tbody>
     </table>
 </div>
 <br>
+@auth
+@can('create', App\Models\Estadi::class)
 <div class="mb-4">
     <a href="{{ route('estadis.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
         Afegir Estadi
     </a>
 </div>
+@endcan
+@endauth
 <div class="mt-4">
     {{ $estadis->links() }}
 </div>

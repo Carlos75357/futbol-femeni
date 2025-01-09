@@ -11,9 +11,9 @@ class CreateJugadorsTable extends Migration
         Schema::create('jugadors', function (Blueprint $table) {
             $table->id();
             $table->string('nom');
-            $table->unsignedBigInteger('equip_id'); // Relació amb equips
+            $table->unsignedBigInteger('equip_id'); 
             $table->string('posicio');
-            $table->string('foto')->nullable(); // Permet fotos opcionals
+            $table->string('foto')->nullable();
             $table->timestamps();
 
             // Foreign key

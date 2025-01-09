@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Estadi;
 use App\Models\Equip;
+use App\Http\Requests\StoreEstadiRequest;
+use App\Http\Requests\UpdateEstadiRequest;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class EstadiController extends Controller
 {    
-
+    use AuthorizesRequests;
     public function index() {
         $estadis = Estadi::all();
         $estadis = Estadi::paginate(10);
@@ -29,6 +32,7 @@ class EstadiController extends Controller
 
     public function create()
     {
+        $this->authorize('create', Estadi::class);
         $equips = Equip::all();
         return view('estadis.create', compact('equips'));
     }
@@ -37,14 +41,10 @@ class EstadiController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreEstadiRequest $request)
     {
-        $validated = $request->validate([
-            'nom' => 'required|unique:estadis',
-            'ciutat' => 'required',
-            'capacitat' => 'required|integer|min:0',
-            'equip_principal_id' => 'nullable|exists:equips,id',
-        ]);
+        $this->authorize('create', Estadi::class);
+        $validated = $request->validated();
     
         Estadi::create($validated);
     
@@ -58,6 +58,8 @@ class EstadiController extends Controller
      */
     public function edit(Estadi $estadi)
     {
+        $this->authorize('update', $estadi);
+
         $equips = Equip::all();
         return view('estadis.edit', compact('estadi', 'equips'));
     }
@@ -65,14 +67,11 @@ class EstadiController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateEstadiRequest $request, string $id)
     {
-        $validated = $request->validate([
-            'nom' => 'required|unique:estadis,nom,' . $id,
-            'ciutat' => 'required',
-            'capacitat' => 'required|integer|min:0',
-            'equip_principal_id' => 'nullable|exists:equips,id',
-        ]);
+        $this->authorize('update', Estadi::findOrFail($id));
+
+        $validated = $request->validated();
 
         $estadi = Estadi::findOrFail($id);
         $estadi->update($validated);
@@ -85,6 +84,7 @@ class EstadiController extends Controller
      */
     public function destroy(Estadi $estadi)
     {
+        $this->authorize('delete', $estadi);
         $estadi->delete();
         return redirect()->route('estadis.index')->with('success', 'Estadi esborrat correctament!');
     }

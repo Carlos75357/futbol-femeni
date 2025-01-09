@@ -15,8 +15,11 @@ class JugadorFactory extends Factory
         return [
             'nom' => $this->faker->name(),
             'equip_id' => $equip->id,
+            'dorsal' => rand(1, 11),
             'posicio' => $posicions[array_rand($posicions)],
             'foto' => $this->faker->imageUrl(),
+            'data_naixement' => $this->faker->dateTimeBetween('-30 years', '-18 years'),
         ];
     }
 }
+

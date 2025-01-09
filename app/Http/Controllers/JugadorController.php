@@ -5,9 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Jugador;
 use App\Models\Equip;
+use App\Http\Requests\StoreJugadoraRequest;
+use App\Http\Requests\UpdateJugadoraRequest;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class JugadorController extends Controller
 {
+    use AuthorizesRequests;
     /**
      * Display a listing of the resource.
      */
@@ -19,40 +23,6 @@ class JugadorController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        $equips = Equip::all();
-        return view('jugadors.create' , compact('equips'));
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'nom' => 'required|string|max:255',
-            'equip_id' => 'required|exists:equips,id',
-            'posicio' => 'required|string|max:255',
-            'foto' => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
-        ]);
-
-        if ($request->hasFile('foto')) {
-            $path = $request->file('foto')->store('jugadors', 'public');
-            $validated['foto'] = $path;
-        } else {
-            unset($validated['foto']);
-        }
-    
-        Jugador::create($validated);
-    
-        return redirect()->route('jugadors.index')->with('success', 'Jugador creat correctament.');
-    }
-    
-
-    /**
      * Display the specified resource.
      */
     public function show(Jugador $jugador)
@@ -61,10 +31,41 @@ class JugadorController extends Controller
     }
 
     /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        $this->authorize('create', Jugador::class);
+        // $equips = auth()->user()->equip_id ? [Equip::find(auth()->user()->equip_id)] : Equip::all();
+        $equips = Equip::all();
+        return view('jugadors.create', compact('equips'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(StoreJugadoraRequest $request)
+    {
+        $this->authorize('create', Jugador::class);
+
+        $validated = $request->validated();
+
+        if ($request->hasFile('foto')) {
+            $path = $request->file('foto')->store('jugadors', 'public');
+            $validated['foto'] = $path;
+        }
+    
+        Jugador::create($validated);
+    
+        return redirect()->route('jugadors.index')->with('success', 'Jugador creat correctament.');
+    }
+
+    /**
      * Show the form for editing the specified resource.
      */
     public function edit(Jugador $jugador)
     {
+        $this->authorize('update', $jugador);
         $equips = Equip::all();
         return view('jugadors.edit', compact('jugador', 'equips'));
     }
@@ -72,15 +73,12 @@ class JugadorController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(UpdateJugadoraRequest $request, $id)
     {
-        $validated = $request->validate([
-            'nom' => 'required|string|max:255',
-            'equip_id' => 'required|exists:equips,id',
-            'posicio' => 'required|string|max:255',
-            'foto' => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
-        ]);
+        $this->authorize('update', Jugador::findOrFail($id));
 
+        $validated = $request->validated();
+        
         $jugador = Jugador::findOrFail($id);
 
         if ($request->hasFile('foto')) {
@@ -100,11 +98,9 @@ class JugadorController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Jugador $jugador)
     {
-        // Eliminar el jugador especificat
-        $jugador = Jugador::findOrFail($id);
-
+        $this->authorize('delete', $jugador);
         // Si té una foto, eliminar-la del sistema
         if ($jugador->foto) {
             \Storage::disk('public')->delete($jugador->foto);

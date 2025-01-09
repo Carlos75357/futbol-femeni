@@ -21,7 +21,6 @@ class PartitFactory extends Factory
             'data_partit' => $this->faker->dateTimeBetween('-1 year', '+1 year'),
             'gols_local' => $golsLocal,
             'gols_visitant' => $golsVisitant,
-            'resultat' => "{$golsLocal}-{$golsVisitant}",
         ];
     }
 }

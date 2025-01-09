@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.futbolFemeni')
 
 @section('title', "Guia de Jugadors")
 

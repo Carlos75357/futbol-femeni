@@ -8,9 +8,13 @@ use App\Models\Estadi;
 use App\Models\Jugador;
 use App\Models\Partit;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use App\Http\Requests\StoreEquipRequest;
+use App\Http\Requests\UpdateEquipRequest;
 
 class EquipController extends Controller
 {
+    use AuthorizesRequests;
     public function index() {
         $equips = Equip::all();
         $estadis = Estadi::all(); 
@@ -18,31 +22,37 @@ class EquipController extends Controller
         return view('equips.index', compact('equips', 'estadis'));
     }
    
-    public function show(Equip $equip) {
-        $jugadors = Jugador::where('equip_id', $equip->id)->get();
-        $equip->jugadors = $jugadors->toArray();
-        $partits = Partit::where('equip_local_id', $equip->id)
-            ->orWhere('equip_visitant_id', $equip->id)
-            ->with(['equipLocal', 'equipVisitant'])
-            ->get();
-        $equip->partits = $partits->toArray();
-        return view('equips.show', compact('equip'));
+    public function show(Equip $equip)
+    {
+        $partits = Partit::with(['equipLocal', 'equipVisitant'])
+        ->where(function($query) use ($equip) {
+            $query->where('equip_local_id', $equip->id)
+                ->orWhere('equip_visitant_id', $equip->id);
+        })
+        ->whereNotNull('gols_local')
+        ->whereNotNull('gols_visitant')
+        ->orderBy('data_partit', 'desc')
+        ->take(5)
+        ->get();
+    
+        return view('equips.show', [
+            'equip' => $equip,
+            'partits' => $partits
+        ]);
     }
+    
    
     public function create() {
+        $this->authorize('create', Equip::class);
         $estadis = Estadi::all(); 
 
         return view('equips.create', compact('estadis'));
     }
 
-    public function store(Request $request)
+    public function store(StoreEquipRequest $request)
     {
-        $validated = $request->validate([
-            'nom' => 'required|unique:equips',
-            'titols' => 'integer|min:0',
-            'estadi_id' => 'required|exists:estadis,id',
-            'escut' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-        ]);
+        $this->authorize('create', Equip::class);
+        $validated = $request->validated();
     
         if ($request->hasFile('escut')) {
             $path = $request->file('escut')->store('escuts', 'public');
@@ -55,28 +65,16 @@ class EquipController extends Controller
     }
    
     public function edit(Equip $equip) {
+        $this->authorize('update', $equip);
         $estadis = Estadi::all(); 
         return view('equips.edit', compact('equip', 'estadis'));
     }
-   
-    public function destroy(Equip $equip)
-    {
-        if ($equip->escut) {
-            Storage::disk('public')->delete($equip->escut);
-        }
-        $equip->delete();
-        return redirect()->route('equips.index')->with('success', 'Equip esborrat correctament!');
-    }
 
-    public function update(Request $request, $id)
+    public function update(UpdateEquipRequest $request, $id)
     {
-        $validated = $request->validate([
-            'nom' => 'required|unique:equips,nom,' . $id,
-            'titols' => 'integer|min:0',
-            'estadi_id' => 'required|exists:estadis,id',
-            'escut' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-        ]);
-    
+        $this->authorize('update', Equip::findOrFail($id));
+        $validated = $request->validated();
+
         $equip = Equip::findOrFail($id);
     
         if ($request->hasFile('escut')) {
@@ -90,5 +88,15 @@ class EquipController extends Controller
         $equip->update($validated);
     
         return redirect()->route('equips.index')->with('success', 'Equip actualitzat correctament!');
+    }
+       
+    public function destroy(Equip $equip)
+    {
+        $this->authorize('delete', $equip);
+        if ($equip->escut) {
+            Storage::disk('public')->delete($equip->escut);
+        }
+        $equip->delete();
+        return redirect()->route('equips.index')->with('success', 'Equip esborrat correctament!');
     }
 }

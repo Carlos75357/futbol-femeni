@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.futbolFemeni')
 @section('title', "Crear Estadi de Futbol Femení")
 @section('content')
 <div class="container mx-auto p-6 bg-white shadow-lg rounded-lg">

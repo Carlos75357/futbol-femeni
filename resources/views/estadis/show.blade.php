@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.futbolFemeni')
 @section('title', " Estadis de Futbol Femení" )
 @section('content')
 {{-- @dd($estadi) --}}

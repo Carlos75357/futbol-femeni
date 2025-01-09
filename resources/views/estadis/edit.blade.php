@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.futbolFemeni')
 @section('title', "Guia d'Estadis")
 @section('content')
 <form action="{{ route('estadis.update', $estadi->id) }}" method="POST" class="bg-white p-6 rounded-lg shadow-md max-w-md mx-auto">

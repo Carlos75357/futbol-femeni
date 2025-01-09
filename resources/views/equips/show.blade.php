@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.futbolFemeni')
 @section('title', " Guia d'Equips" )
 @section('content')
 <x-equip
@@ -7,7 +7,8 @@
    :estadi="$equip['estadi']->nom"
    :titols="$equip['titols']"
    :escut="$equip['escut']"
-   :jugadors="$equip['jugadors']"
-   :partits="$equip['partits']"
+   :jugadors="$equip['jugadors']->toArray()"
+   :partits="$partits"
+   :edadMedia="$equip['edadMedia']" 
 />
 @endsection 

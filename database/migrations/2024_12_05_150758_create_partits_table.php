@@ -14,9 +14,8 @@ class CreatePartitsTable extends Migration
             $table->unsignedBigInteger('equip_visitant_id');
 
             $table->date('data_partit');
-            $table->integer('gols_local')->default(0);
-            $table->integer('gols_visitant')->default(0);
-            $table->string('resultat')->nullable();
+            $table->integer('gols_local')->default(0)->nullable();
+            $table->integer('gols_visitant')->default(0)->nullable();
             $table->timestamps();
 
             // Foreign keys

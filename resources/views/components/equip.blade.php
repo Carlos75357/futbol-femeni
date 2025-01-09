@@ -1,51 +1,51 @@
-<div class="equip border rounded-lg shadow-md p-4 bg-white max-w-sm mx-auto space-y-4">
+<div class="equip border rounded-lg shadow-md p-6 bg-white max-w-lg mx-auto space-y-6">
     @if ($escut)
-        <div class="flex items-center">
+        <div class="flex items-center space-x-4">
             <img src="{{ asset('storage/' . $escut) }}" alt="Escut de {{ $nom }}" class="h-16 w-16 object-cover rounded-full border-2 border-blue-800">
-            <h2 class="ml-4 text-xl font-bold text-blue-800">{{ $nom }}</h2>
+            <h2 class="text-4xl font-bold text-blue-800">{{ $nom }}</h2>
         </div>
     @endif
-    <p class="text-sm text-gray-600"><strong>Estadi:</strong> {{ $estadi }}</p>
-    <p class="text-sm text-gray-600"><strong>Títols:</strong> {{ $titols }}</p>
-    <div class="players mt-4">
-        <h3 class="text-lg font-semibold text-blue-800 mb-2">Jugadors</h3>
-        <ul class="space-y-2">
+    <div class="info space-y-2">
+        <p class="text-lg text-gray-600"><strong>Estadi:</strong> {{ $estadi }}</p>
+        <p class="text-lg text-gray-600"><strong>Títols:</strong> {{ $titols }}</p>
+        <p class="text-sm text-gray-600"><strong>Edad Media:</strong> {{ $edadMedia }}</p>
+    </div>
+
+    <!-- Jugadores Section -->
+    <div class="players">
+        <h3 class="text-4xl font-semibold text-blue-800 mb-4 text-center">Jugadors</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             @foreach($jugadors as $jugador)
-                <li class="flex items-center p-2 bg-gray-100 rounded-md">
-                    <img src="{{ asset('storage/' . $jugador['foto']) }}" alt="{{ $jugador['nom'] }}" class="h-8 w-8 object-cover rounded-full border-2 border-blue-800">
-                    <div class="ml-4">
-                        <h4 class="font-medium text-gray-800">{{ $jugador['nom'] }}</h4>
-                        <p class="text-gray-500">{{ $jugador['posicio'] }}</p>
-                    </div>
-                </li>
+                <div class="flex flex-col items-center p-4 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <img src="{{ asset('storage/' . $jugador['foto']) }}" alt="{{ $jugador['nom'] }}" class="h-20 w-20 object-cover rounded-full border-2 border-blue-800 mb-3">
+                    <h4 class="text-gray-800 font-medium">{{ $jugador['nom'] }}</h4>
+                    <p class="text-md text-gray-500">{{ $jugador['posicio'] }}</p>
+                    <p class="text-md text-gray-500">Dorsal: {{ $jugador['dorsal'] }}</p>
+                </div>
             @endforeach
-        </ul>
-    </div>
-    <div class="matches mt-4">
-        <h3 class="text-lg font-semibold text-blue-800 mb-2">Partits</h3>
-        <div class="local-matches">
-            <h4 class="font-medium text-gray-800">Local</h4>
-            <ul class="space-y-2">
-                @foreach($partits as $partit)
-                    @if($partit['equip_local_id'] === $id)
-                        <li class="p-2 bg-gray-100 rounded-md">
-                            {{ $partit['equip_local']['nom'] }} vs {{ $partit['equip_visitant']['nom'] }} ({{ $partit['resultat'] }})
-                        </li>
-                    @endif
-                @endforeach
-            </ul>
-        </div>
-        <div class="visitor-matches mt-4">
-            <h4 class="font-medium text-gray-800">Visitant</h4>
-            <ul class="space-y-2">
-                @foreach($partits as $partit)
-                    @if($partit['equip_visitant_id'] === $id)
-                        <li class="p-2 bg-gray-100 rounded-md">
-                            {{ $partit['equip_local']['nom'] }} vs {{ $partit['equip_visitant']['nom'] }} ({{ $partit['resultat'] }})
-                        </li>
-                    @endif
-                @endforeach
-            </ul>
         </div>
     </div>
+
+    <!-- Partidos Section -->
+    <div class="matches">
+        <h3 class="text-4xl font-semibold text-blue-800 mb-4 text-center">Partits</h3>
+
+        <div class="space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                @foreach($partits as $partit)
+                    <div class="p-4 bg-white border border-gray-200 rounded-md shadow-md text-center">
+                        <div class="flex justify-between items-center">
+                            <h2 class="text-lg font-bold text-gray-800">{{ $partit->equipLocal->nom }}</h2>
+                            <h2 class="text-lg font-bold text-gray-800">{{ $partit->equipVisitant->nom }}</h2>
+                        </div>
+                        <p class="text-3xl font-extrabold text-gray-900 my-2">
+                            {{ $partit['gols_local'] }} - {{ $partit['gols_visitant'] }}
+                        </p>
+                        <p class="text-sm text-gray-600">{{ $partit['data_partit'] }}</p>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+
 </div>
