@@ -1,0 +1,883 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Futbol Femeni API Documentation",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api": {},
+        "/api/equips": {
+            "get": {
+                "tags": [
+                    "equips"
+                ],
+                "summary": "Llista equips",
+                "operationId": "a6032419917db803b21e4784c5d2f27f",
+                "responses": {
+                    "200": {
+                        "description": "Llista de equips",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Equip"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "equips"
+                ],
+                "summary": "Crear un nou equip",
+                "operationId": "690ab9ada1182d022307187168c59569",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Equip"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Equip creat amb èxit",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Equip"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/equips/{id}": {
+            "get": {
+                "tags": [
+                    "equips"
+                ],
+                "summary": "Mostrar un equip",
+                "operationId": "dc47c8fd5b3c7d7025f018242222d67b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de l'equip",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Detalls de l'equip",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Equip"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "equips"
+                ],
+                "summary": "Actualitzar un equip",
+                "operationId": "5b53fa7116250c69d849b993d51a79e0",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de l'equip",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Equip"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Equip actualitzat amb èxit",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Equip"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "equips"
+                ],
+                "summary": "Eliminar un equip",
+                "operationId": "862029cc328cd6adbcd3e5243c9b78bd",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de l'equip",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Equip eliminat amb èxit",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "example": "Equip eliminat amb èxit"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/estadis": {
+            "get": {
+                "tags": [
+                    "estadis"
+                ],
+                "summary": "Llista estadis",
+                "operationId": "42a122782ac9d7120c63215a1b535a07",
+                "responses": {
+                    "200": {
+                        "description": "Llista de estadis",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Estadi"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "estadis"
+                ],
+                "summary": "Crear un nou estadi",
+                "operationId": "0393f55089d469ab2547eab59bad5d71",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Estadi"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Estadi creat amb èxit",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Estadi"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/estadis/{id}": {
+            "get": {
+                "tags": [
+                    "estadis"
+                ],
+                "summary": "Mostrar un estadi",
+                "operationId": "d539bcb2765f1675d491438dd85efec4",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de l'estadi",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Detalls de l'estadi",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Estadi"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "estadis"
+                ],
+                "summary": "Actualitzar un estadi",
+                "operationId": "afb3af9986ebe408eb75fa7fafb66d2a",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de l'estadi",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Estadi"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Estadi actualitzat amb èxit",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Estadi"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "estadis"
+                ],
+                "summary": "Eliminar un estadi",
+                "operationId": "3fd8ddb70ba0da9ab72aa168933407f5",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de l'estadi",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Estadi eliminat amb èxit",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "example": "Estadi eliminat amb èxit"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/jugadores": {
+            "get": {
+                "tags": [
+                    "Jugadors"
+                ],
+                "summary": "Llistar jugadors",
+                "operationId": "dfdc9d92a8b1ea449d2eb6eac1e13f1f",
+                "responses": {
+                    "200": {
+                        "description": "Llista de jugadors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Jugador"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Jugadors"
+                ],
+                "summary": "Crear un jugador",
+                "operationId": "7038e328c92411914d104b547777f510",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nombre",
+                                    "posicion",
+                                    "foto"
+                                ],
+                                "properties": {
+                                    "nombre": {
+                                        "type": "string",
+                                        "example": "Carlos"
+                                    },
+                                    "posicion": {
+                                        "type": "string",
+                                        "example": "Delantero"
+                                    },
+                                    "foto": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Jugador creat amb èxit",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Jugador"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Petició invàlida"
+                    }
+                }
+            }
+        },
+        "/api/jugadores/{id}": {
+            "get": {
+                "tags": [
+                    "Jugadors"
+                ],
+                "summary": "Mostrar un jugador",
+                "operationId": "26eac9accd0b96d2422ec9ab9e213493",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del jugador",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Jugador recuperat amb èxit",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Jugador"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Jugador no trobat"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Jugadors"
+                ],
+                "summary": "Actualitzar un jugador",
+                "operationId": "afeb71f9c5fb54c453fef44b7e62e74d",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del jugador",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nombre",
+                                    "posicion"
+                                ],
+                                "properties": {
+                                    "nombre": {
+                                        "type": "string",
+                                        "example": "Carlos"
+                                    },
+                                    "posicion": {
+                                        "type": "string",
+                                        "example": "Delantero"
+                                    },
+                                    "foto": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Jugador actualitzat amb èxit",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Jugador"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Petició invàlida"
+                    },
+                    "404": {
+                        "description": "Jugador no trobat"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Jugadors"
+                ],
+                "summary": "Eliminar un jugador",
+                "operationId": "39bd189a20b0444b89a76bde343a4701",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del jugador",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Jugador eliminat amb èxit"
+                    },
+                    "404": {
+                        "description": "Jugador no trobat"
+                    }
+                }
+            }
+        },
+        "/api/partits": {
+            "get": {
+                "tags": [
+                    "Partits"
+                ],
+                "summary": "Llistar partits",
+                "operationId": "08850608379c9aaac01784924307fec6",
+                "responses": {
+                    "200": {
+                        "description": "Llista de partits",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Partit"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Partits"
+                ],
+                "summary": "Crear un partit",
+                "operationId": "12dbbf3247e97a9ff4249700a7071e74",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "equipo_local",
+                                    "equipo_visitante",
+                                    "fecha",
+                                    "resultado_local",
+                                    "resultado_visitante"
+                                ],
+                                "properties": {
+                                    "equipo_local": {
+                                        "type": "string",
+                                        "example": "Equipo A"
+                                    },
+                                    "equipo_visitante": {
+                                        "type": "string",
+                                        "example": "Equipo B"
+                                    },
+                                    "fecha": {
+                                        "type": "string",
+                                        "format": "date-time",
+                                        "example": "2025-01-20T18:00:00"
+                                    },
+                                    "resultado_local": {
+                                        "type": "integer",
+                                        "example": 2
+                                    },
+                                    "resultado_visitante": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Partit creat amb èxit",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Partit"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Petició invàlida"
+                    }
+                }
+            }
+        },
+        "/api/partits/{id}": {
+            "get": {
+                "tags": [
+                    "Partits"
+                ],
+                "summary": "Mostrar un partit",
+                "operationId": "360f544cf92ce47e8dbd16325b723fa7",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del partit",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Partit recuperat amb èxit",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Partit"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Partit no trobat"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Partits"
+                ],
+                "summary": "Actualitzar un partit",
+                "operationId": "da0ecb6da0d86b638ae20a70badf27d2",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del partit",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "equipo_local",
+                                    "equipo_visitante",
+                                    "fecha",
+                                    "resultado_local",
+                                    "resultado_visitante"
+                                ],
+                                "properties": {
+                                    "equipo_local": {
+                                        "type": "string",
+                                        "example": "Equipo A"
+                                    },
+                                    "equipo_visitante": {
+                                        "type": "string",
+                                        "example": "Equipo B"
+                                    },
+                                    "fecha": {
+                                        "type": "string",
+                                        "format": "date-time",
+                                        "example": "2025-01-20T18:00:00"
+                                    },
+                                    "resultado_local": {
+                                        "type": "integer",
+                                        "example": 2
+                                    },
+                                    "resultado_visitante": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Partit actualitzat amb èxit",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Partit"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Petició invàlida"
+                    },
+                    "404": {
+                        "description": "Partit no trobat"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Partits"
+                ],
+                "summary": "Eliminar un partit",
+                "operationId": "c8a84d3675aae18ac948be0213daeef1",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del partit",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Partit eliminat amb èxit"
+                    },
+                    "404": {
+                        "description": "Partit no trobat"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Equip": {
+                "description": "Esquema de Equip",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int64",
+                        "readOnly": true
+                    },
+                    "nom": {
+                        "type": "string"
+                    },
+                    "estadi_id": {
+                        "type": "integer"
+                    },
+                    "titols": {
+                        "type": "integer"
+                    },
+                    "escut": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "Estadi": {
+                "description": "Esquema de Estadi",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int64",
+                        "readOnly": true
+                    },
+                    "nom": {
+                        "type": "string"
+                    },
+                    "ciutat": {
+                        "type": "string"
+                    },
+                    "capacitat": {
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "Jugador": {
+                "description": "Esquema de Jugadora",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int64",
+                        "readOnly": true
+                    },
+                    "nom": {
+                        "type": "string"
+                    },
+                    "equip_id": {
+                        "type": "integer"
+                    },
+                    "posicio": {
+                        "type": "string"
+                    },
+                    "foto": {
+                        "type": "string"
+                    },
+                    "dorsal": {
+                        "type": "integer"
+                    },
+                    "data_naixement": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": "string"
+                    },
+                    "updated_at": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "Partit": {
+                "description": "Esquema de Partit",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int64",
+                        "readOnly": true
+                    },
+                    "equip_local_id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "equip_visitant_id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "data_partit": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "gols_local": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "gols_visitant": {
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "equips",
+            "description": "equips"
+        },
+        {
+            "name": "estadis",
+            "description": "estadis"
+        },
+        {
+            "name": "Jugadors",
+            "description": "Jugadors"
+        },
+        {
+            "name": "Partits",
+            "description": "Partits"
+        }
+    ]
+}

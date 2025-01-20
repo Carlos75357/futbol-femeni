@@ -8,6 +8,44 @@ use App\Events\PartitActualizat;
 
 class Partit extends Model
 {
+    /**
+ * @OA\Schema(
+ *     schema="Partit",
+ *     description="Esquema de Partit",
+ *     @OA\Property(
+ *         property="id",
+ *         type="integer",
+ *         format="int64",
+ *         readOnly=true,
+ *     ),
+ *     @OA\Property(
+ *         property="equip_local_id",
+ *         type="integer",
+ *         format="int64",
+ *     ),
+ *     @OA\Property(
+ *         property="equip_visitant_id",
+ *         type="integer",
+ *         format="int64",
+ *     ),
+ *     @OA\Property(
+ *         property="data_partit",
+ *         type="string",
+ *         format="date-time",
+ *     ),
+ *     @OA\Property(
+ *         property="gols_local",
+ *         type="integer",
+ *         format="int64",
+ *     ),
+ *     @OA\Property(
+ *         property="gols_visitant",
+ *         type="integer",
+ *         format="int64",
+ *     ),
+ * )
+ */
+
     use HasFactory;
 
     protected $fillable = [

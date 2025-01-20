@@ -8,7 +8,7 @@
     <table class="w-full border-collapse border border-gray-200 rounded-lg overflow-hidden">
         <thead class="bg-gray-100">
         <tr>
-            <th class="border border-gray-300 p-4 text-left font-semibold text-gray-700">Nom</th>
+            <th class="border border-gray-300 p-4 text-left font-semibold text-gray-700">Nombre</th>
             <th class="border border-gray-300 p-4 text-left font-semibold text-gray-700">Estadi</th>
             <th class="border border-gray-300 p-4 text-left font-semibold text-gray-700">Títols</th>
             @auth

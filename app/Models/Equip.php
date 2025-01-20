@@ -7,6 +7,34 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Equip extends Model
 {
+    /**
+ * @OA\Schema(
+ *     schema="Equip",
+ *     description="Esquema de Equip",
+ *     @OA\Property(
+ *         property="id",
+ *         type="integer",
+ *         format="int64",
+ *         readOnly=true,
+ *     ),
+ *     @OA\Property(
+ *         property="nom",
+ *         type="string",     
+ *     ),
+ *     @OA\Property(
+ *         property="estadi_id",
+ *         type="integer",     
+ *     ),
+ *     @OA\Property(
+ *         property="titols",
+ *         type="integer",     
+ *     ),
+ *     @OA\Property(
+ *         property="escut",
+ *         type="string",     
+ *     ),
+ * )
+ */
     use HasFactory;
     protected $fillable = ['nom', 'estadi_id', 'titols', 'escut'];
 

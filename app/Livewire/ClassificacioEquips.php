@@ -14,10 +14,6 @@ class ClassificacioEquips extends Component
 {
     public $classificacio;
 
-    protected $listeners = [
-        'PartitActualizat' => 'actualizarClassificacio', 
-    ];
-
     public function mount()
     {
         $this->renderClassificacio();
@@ -102,3 +98,4 @@ class ClassificacioEquips extends Component
         return $equip->partitsLocal->sum('gols_visitant') + $equip->partitsVisitant->sum('gols_local');
     }
 }
+
