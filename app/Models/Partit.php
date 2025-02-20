@@ -80,12 +80,7 @@ class Partit extends Model
         return $this->belongsTo(User::class);
     }
 
-    public static function booted() 
-    {
-        static::updated(function ($partit) {
-            event(new PartitActualitzat($partit));
-        });
-    }
+    // Removed duplicate event dispatch
 
     public function __toString()
     {

@@ -15,10 +15,9 @@ window.Echo = new Echo({
     forceTLS: true
 });
 
-Echo.channel('futbol-femeni')
+window.Echo.channel('futbol-femeni')
 .listen('.PartitActualitzat', (data) => {
     console.log('Esdeveniment rebut:', data);
-    Livewire.dispatch('PartitActualitzat', data);
-
+    // El evento se manejará automáticamente por Livewire
 });
 

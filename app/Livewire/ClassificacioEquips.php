@@ -12,11 +12,20 @@ use Livewire\Attributes\On;
 
 class ClassificacioEquips extends Component
 {
+    protected $listeners = ['PartitActualitzat' => 'actualizarClassificacio'];
+
+    #[On('PartitActualitzat')]
+    public function handlePartitActualitzat($data)
+    {
+        $this->actualizarClassificacio($data);
+    }
     public $classificacio;
+    public $posicionsAnteriors = [];
 
     public function mount()
     {
         $this->renderClassificacio();
+        $this->guardarPosicionsActuals();
     }
 
     
@@ -26,10 +35,35 @@ class ClassificacioEquips extends Component
         return view('livewire.classificacio-equips');
     }
 
-    #[On('PartitActualitzat')]
-    public function actualizarClassificacio() {
-        $this->renderClassificacio();
-        $this->dispatch('$refresh');
+    public function actualizarClassificacio($data = null) {
+        try {
+            $this->posicionsAnteriors = $this->getPosicionsActuals();
+            $this->renderClassificacio();
+            $this->dispatch('classificacioActualitzada', [
+                'posicionsAnteriors' => $this->posicionsAnteriors,
+                'posicionsActuals' => $this->getPosicionsActuals(),
+                'timestamp' => $data['timestamp'] ?? now()->timestamp
+            ]);
+        } catch (\Exception $e) {
+            logger()->error('Error al actualizar clasificación: ' . $e->getMessage(), [
+                'data' => $data,
+                'trace' => $e->getTraceAsString()
+            ]);
+        }
+    }
+
+    private function getPosicionsActuals()
+    {
+        $posicions = [];
+        foreach ($this->classificacio as $index => $equip) {
+            $posicions[$equip['equip']] = $index + 1;
+        }
+        return $posicions;
+    }
+
+    private function guardarPosicionsActuals()
+    {
+        $this->posicionsAnteriors = $this->getPosicionsActuals();
     }
 
     public function renderClassificacio()

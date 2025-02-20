@@ -47,7 +47,7 @@ Route::fallback(function () {
     return response()->view('errors.404', [], 404);
 });
 
-Route::get('auth/google', [LoginController::class, 'redirectToGoogle'])->name('auth.google');
-Route::get('auth/google/callback', [LoginController::class, 'handleGoogleCallback'])->name('auth.google.callback');
+Route::get('auth/google', [\App\Http\Controllers\Auth\GoogleController::class, 'redirectToGoogle'])->name('auth.google');
+Route::get('auth/google/callback', [\App\Http\Controllers\Auth\GoogleController::class, 'handleGoogleCallback'])->name('auth.google.callback');
 
 require __DIR__.'/auth.php';

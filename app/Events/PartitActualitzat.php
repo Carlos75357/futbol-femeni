@@ -13,10 +13,20 @@ class PartitActualitzat implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $partit;
+    public $timestamp;
 
     public function __construct($partit)
     {
-         $this->partit = $partit;
+        $this->partit = $partit;
+        $this->timestamp = now()->timestamp;
+    }
+
+    public function broadcastWith()
+    {
+        return [
+            'partit' => $this->partit,
+            'timestamp' => $this->timestamp,
+        ];
     }
 
     public function broadcastOn()

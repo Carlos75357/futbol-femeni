@@ -24,6 +24,7 @@ class User extends Authenticatable
         'password',
         'google_id',
         'avatar',
+        'type',
     ];
 
     /**
@@ -49,9 +50,24 @@ class User extends Authenticatable
         ];
     }
 
+    public function isConvidat(): bool
+    {
+        return $this->role === 'convidat';
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->role === 'administrador';
+    }
+
+    public function isArbitre(): bool
+    {
+        return $this->role === 'arbitre';
+    }
+
     public function equip()
     {
-        return $this->hasOne(Equip::class );
+        return $this->hasOne(Equip::class);
     }
 
     public function manager()
