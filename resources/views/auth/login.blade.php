@@ -44,4 +44,5 @@
             </x-primary-button>
         </div>
     </form>
+    <a href="{{ route('auth.google') }}">Inicia sessió amb Google</a>
 </x-guest-layout>

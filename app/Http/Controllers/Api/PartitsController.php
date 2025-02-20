@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\StorePartitRequest;
+use App\Http\Requests\UpdatePartitRequest;
 use App\Http\Resources\PartitResource;
 use App\Models\Partit;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -129,7 +130,7 @@ public function show(Partit $partit)
  *     )
  * )
  */
-public function update(StorePartitRequest $request, Partit $partit)
+public function update(UpdatePartitRequest $request, Partit $partit)
 {
     $partit->update($request->validated());
     return $this->sendResponse($partit, 'Partit actualitzat amb èxit', 201);

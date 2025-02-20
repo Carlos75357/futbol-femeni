@@ -10,7 +10,7 @@ class StorePartitRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return $this->user()->role == 'arbitre';
+        return true;
     }
 
     public function rules(): array
@@ -21,6 +21,8 @@ class StorePartitRequest extends FormRequest
             'data_partit' => 'required|date',
             'gols_local' => 'required|integer|min:0',
             'gols_visitant' => 'required|integer|min:0',
+            'jornada' => 'required|integer|min:1',
+            'arbitre_id' => 'required|exists:users,id',
         ];
     }
 
@@ -38,6 +40,11 @@ class StorePartitRequest extends FormRequest
             'gols_visitant.required' => 'El camp "Goles visitant" es obligatori.',
             'gols_visitant.integer' => 'El camp "Goles visitant" ha de ser un nombre enter.',
             'gols_visitant.min' => 'El nombre de goles visitant no pot ser inferior a zero.',
+            'jornada.required' => 'El camp "Jornada" es obligatori.',
+            'jornada.integer' => 'El camp "Jornada" ha de ser un nombre enter.',
+            'jornada.min' => 'La jornada no pot ser inferior a 1.',
+            'arbitre_id.required' => 'El camp "Arbitre" es obligatori.',
+            'arbitre_id.exists' => 'L\'arbitre seleccionat no existeix.',
         ];
     }
 }

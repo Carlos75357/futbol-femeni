@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\PartitActualitzat;
 use Illuminate\Http\Request;
 use App\Models\Partit;
 use App\Models\Equip;
@@ -88,7 +89,7 @@ class PartitsController extends Controller
         $partit = Partit::findOrFail($id);
         $partit->update($validated);
 
-        event(new \App\Events\PartitActualizat());
+        event(new PartitActualitzat($partit));
 
         return redirect()->route('partits.index')->with('success', 'Partit actualitzat correctament.');
     }

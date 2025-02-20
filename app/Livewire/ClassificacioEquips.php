@@ -2,7 +2,7 @@
 
 namespace App\Livewire;
 
-use App\Events\PartitActualizat;
+use App\Events\PartitActualitzat;
 use Illuminate\Foundation\Exceptions\Renderer\Listener;
 use Livewire\Component;
 use App\Models\Equip;
@@ -19,14 +19,17 @@ class ClassificacioEquips extends Component
         $this->renderClassificacio();
     }
 
+    
+
     public function render()
     {
         return view('livewire.classificacio-equips');
     }
 
+    #[On('PartitActualitzat')]
     public function actualizarClassificacio() {
         $this->renderClassificacio();
-        $this->render();
+        $this->dispatch('$refresh');
     }
 
     public function renderClassificacio()

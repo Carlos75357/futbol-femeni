@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use App\Http\Requests\StoreEquipRequest;
 use App\Http\Requests\UpdateEquipRequest;
+use App\Services\ChatGPTService;
 
 class EquipController extends Controller
 {
@@ -22,23 +23,10 @@ class EquipController extends Controller
         return view('equips.index', compact('equips', 'estadis'));
     }
    
-    public function show(Equip $equip)
-    {
-        $partits = Partit::with(['equipLocal', 'equipVisitant'])
-        ->where(function($query) use ($equip) {
-            $query->where('equip_local_id', $equip->id)
-                ->orWhere('equip_visitant_id', $equip->id);
-        })
-        ->whereNotNull('gols_local')
-        ->whereNotNull('gols_visitant')
-        ->orderBy('data_partit', 'desc')
-        ->take(5)
-        ->get();
-    
-        return view('equips.show', [
-            'equip' => $equip,
-            'partits' => $partits
-        ]);
+    public function show(Equip $equip) {
+
+        $descripcio = ChatGPTService::getChatResponse('Dona una descripció del '.$equip->nom.' de Futbol Femení');
+        return view('equips.show', compact('equip','descripcio'));
     }
     
    

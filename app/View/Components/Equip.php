@@ -19,7 +19,8 @@ class Equip extends Component
         public ?string $escut,
         public ?array $jugadors,
         public $partits,
-        public float $edadMedia
+        public float $edadMedia,
+        public ?string $descripcio
          ) { }
 
     /**

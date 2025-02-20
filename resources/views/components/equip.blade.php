@@ -9,21 +9,8 @@
         <p class="text-lg text-gray-600"><strong>Estadi:</strong> {{ $estadi }}</p>
         <p class="text-lg text-gray-600"><strong>Títols:</strong> {{ $titols }}</p>
         <p class="text-sm text-gray-600"><strong>Edad Media:</strong> {{ $edadMedia }}</p>
-    </div>
-
-    <!-- Jugadores Section -->
-    <div class="players">
-        <h3 class="text-4xl font-semibold text-blue-800 mb-4 text-center">Jugadors</h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            @foreach($jugadors as $jugador)
-                <div class="flex flex-col items-center p-4 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
-                    <img src="{{ asset('storage/' . $jugador['foto']) }}" alt="{{ $jugador['nom'] }}" class="h-20 w-20 object-cover rounded-full border-2 border-blue-800 mb-3">
-                    <h4 class="text-gray-800 font-medium">{{ $jugador['nom'] }}</h4>
-                    <p class="text-md text-gray-500">{{ $jugador['posicio'] }}</p>
-                    <p class="text-md text-gray-500">Dorsal: {{ $jugador['dorsal'] }}</p>
-                </div>
-            @endforeach
-        </div>
+        <p class="text-sm text-gray-600"><strong>Descripcio IA:</strong> {{ $descripcio ?? 'No disponible' }}</p>
+</p>
     </div>
 
     <!-- Partidos Section -->

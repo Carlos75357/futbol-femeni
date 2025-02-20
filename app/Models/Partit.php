@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
+use App\Events\PartitActualitzat;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Events\PartitActualizat;
+
 
 class Partit extends Model
 {
@@ -54,6 +55,8 @@ class Partit extends Model
         'data_partit',
         'gols_local',
         'gols_visitant',
+        'jornada',
+        'arbitre_id',
         'resultat',
     ];
 
@@ -77,9 +80,10 @@ class Partit extends Model
         return $this->belongsTo(User::class);
     }
 
-    public static function booted() {
-        static::updated(function () {
-            event(new PartitActualizat());
+    public static function booted() 
+    {
+        static::updated(function ($partit) {
+            event(new PartitActualitzat($partit));
         });
     }
 

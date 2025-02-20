@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Events\PartitActualizat;
+use App\Events\PartitActualitzat;
 use App\Listeners\SendPartitActualizat;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Event;
